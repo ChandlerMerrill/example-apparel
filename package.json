@@ -1,0 +1,33 @@
+{
+  "name": "apparel",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.8.2",
+    "@stripe/react-stripe-js": "^3.7.0",
+    "@svgr/webpack": "^8.1.0",
+    "firebase": "^11.8.1",
+    "firebase-admin": "^13.4.0",
+    "next": "15.3.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
+    "react-redux": "^9.2.0",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^6.0.0",
+    "stripe": "^18.1.1",
+    "styled-components": "^6.1.18"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "babel-plugin-styled-components": "^2.1.4",
+    "eslint": "^9",
+    "eslint-config-next": "15.3.2"
+  }
+}
