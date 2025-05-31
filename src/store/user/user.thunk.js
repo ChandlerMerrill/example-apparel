@@ -23,6 +23,8 @@ export const signUp = createAsyncThunk(
         email,
         password
       );
+      console.log("nameFirst:", nameFirst);
+      console.log("nameLast:", nameLast);
       await createUserDocumentFromAuth(user, { nameFirst, nameLast });
       return user;
     } catch (error) {

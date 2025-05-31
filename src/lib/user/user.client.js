@@ -20,6 +20,8 @@ export const createUserDocumentFromAuth = async (
   if (!userSnapshot.exists()) {
     const { email, displayName } = userAuth;
     const { nameFirst, nameLast } = additionalInformation;
+    console.log("User Auth:", userAuth);
+    console.log("Additional Information:", additionalInformation);
     const createdAt = serverTimestamp();
 
     let firstName = nameFirst || "";
@@ -39,7 +41,6 @@ export const createUserDocumentFromAuth = async (
         email,
         roles: ["user"],
         createdAt,
-        ...additionalInformation,
       });
     } catch (error) {
       console.error("Error creating user document:", error.message);

@@ -7,7 +7,7 @@ import Button from "@/components/button/button.component";
 
 import { SignUpContainer } from "./sign-up-form.styles";
 import { useRouter } from "next/navigation";
-import { signUp } from "@/store/user/user.thunk";
+import { signInWithGoogle, signUp } from "@/store/user/user.thunk";
 
 const defaultFormFields = {
   nameFirst: "",
@@ -26,23 +26,26 @@ const SignUpForm = () => {
     setFormFields(defaultFormFields);
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("passwords do not match");
+      alert("Passwords do not match");
       return;
     }
 
     try {
-      dispatch(signUp(email, password, nameFirst, nameLast));
-      console.log("sign up start");
+      // unwrap() makes dispatch return the actual payload or throw the reject value,
+      // letting you keep the try/catch entirely in the component.
+      console.log("nameFirst from ui:", nameFirst);
+      await dispatch(signUp({ email, password, nameFirst, nameLast })).unwrap();
+
       resetFormFields();
-    } catch (error) {
-      if (error.code === "auth/email-already-in-use") {
-        alert("Cannot create user, email already in use");
+    } catch (err) {
+      if (err === "auth/email-already-in-use") {
+        alert("Email already in use");
       } else {
-        console.log("user creation encountered an error", error);
+        console.error("User creation encountered an error:", err);
       }
     }
   };
