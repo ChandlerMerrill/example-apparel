@@ -5,10 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 
 import FormInput from "@/components/form-input/form-input.component";
-import Button, { BUTTON_TYPE_CLASSES } from "@/components/button/button.component";
+import Button, {
+  BUTTON_TYPE_CLASSES,
+} from "@/components/button/button.component";
 import { SignInContainer, ButtonsContainer } from "./sign-in-form.styles";
 
-import { signInWithGoogle,signInWithEmail } from "@/store/user/user.thunk";
+import { signInWithGoogle, signInWithEmail } from "@/store/user/user.thunk";
 import { useRedirectAfterLogin } from "@/hooks/useRedirectAfterLogin";
 
 const defaultFormFields = {
@@ -17,18 +19,19 @@ const defaultFormFields = {
 };
 
 const SignInForm = () => {
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
-  const { redirect } = useRedirectAfterLogin("/");
+  const { redirect } = useRedirectAfterLogin();
 
   const currentUser = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
-    if (currentUser) {
-      redirect();
+    if (currentUser?.uid) {
+      console.log("redirecting to user destination:", currentUser.uid);
+      redirect(currentUser.uid);
     }
   }, [currentUser, redirect]);
 

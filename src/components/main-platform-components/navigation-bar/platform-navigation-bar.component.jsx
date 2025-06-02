@@ -27,6 +27,7 @@ import CustomNavLink from "@/components/utility/nav-links/nav-link.util.componen
 const PlatformNavigationBar = ({ logoUrl, name }) => {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
+  console.log("currentUser in PlatformNavigationBar:", currentUser);
   const pathname = usePathname();
   const handleSignOut = () => {
     dispatch(signOut());
@@ -55,7 +56,9 @@ const PlatformNavigationBar = ({ logoUrl, name }) => {
       <NavLinksRight>
         {currentUser ? (
           <>
-            <NavLink href={`/profile`}>PROFILE</NavLink>
+            <NavLink href={`/${currentUser.defaultAccountId}/dashboard`}>
+              MY ACCOUNT
+            </NavLink>
             <NavLink as="span" onClick={handleSignOut}>
               SIGN-OUT
             </NavLink>
