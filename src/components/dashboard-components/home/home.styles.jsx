@@ -1,52 +1,81 @@
-// app/components/dashboard-components/home/home.styles.jsx
+import Link from "next/link";
 import styled from "styled-components";
 
 export const Container = styled.div`
-  padding: 0 1rem;
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 `;
 
 export const Title = styled.h1`
-  font-size: 1.5rem; /* equivalent to text-2xl */
-  font-weight: 700; /* font-bold */
-  margin-bottom: 1rem; /* mb-4 */
+  font-size: 3rem; /* Bigger, more commanding */
+  font-weight: 900;
+  color: #2c3e50; /* Dark slate */
+  margin-bottom: 0.5rem;
+  text-align: center;
+  letter-spacing: -0.02em;
+  user-select: none;
 `;
 
 export const Description = styled.p`
-  margin-bottom: 1.5rem; /* mb-6 */
-  color: #4a5568; /* Tailwind text-gray-700 */
+  font-size: 1.25rem;
+  color: #718096; /* Grayish blue */
+  margin-bottom: 3rem;
+  text-align: center;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
 `;
 
 export const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: 2rem;
 
   @media (min-width: 640px) {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 `;
 
-export const Card = styled.div`
-  border: 1px solid #e5e7eb; /* Tailwind border */
-  padding: 1rem; /* p-4 */
-  border-radius: 0.5rem; /* rounded-lg */
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* shadow */
+export const Card = styled(Link)`
+  background: linear-gradient(145deg, #f0f4f8, #d9e2ec);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 6px 6px 12px #bccadf, -6px -6px 12px #ffffff;
   cursor: pointer;
   text-decoration: none;
-  color: inherit;
+  color: #2c3e50;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 
-  &:hover {
-    background-color: #f9fafb; /* hover:bg-gray-50 */
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-6px);
+    box-shadow: 10px 10px 20px #b0c3d9, -10px -10px 20px #ffffff;
+    background: linear-gradient(145deg, #d9e2ec, #f0f4f8);
+    outline: none;
   }
 `;
 
 export const CardTitle = styled.h2`
-  font-weight: 600; /* font-semibold */
-  font-size: 1.125rem; /* text-lg */
-  margin-bottom: 0.25rem;
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 `;
 
 export const CardDescription = styled.p`
-  font-size: 0.875rem; /* text-sm */
-  color: #4b5563; /* text-gray-600 */
+  font-size: 1rem;
+  color: #486581;
+  line-height: 1.4;
+  flex-grow: 1;
 `;

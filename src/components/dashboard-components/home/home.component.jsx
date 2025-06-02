@@ -1,8 +1,6 @@
 "use client";
 
-// app/components/dashboard-components/home/home.component.jsx
 import React from "react";
-import Link from "next/link";
 import {
   Container,
   Title,
@@ -12,8 +10,20 @@ import {
   CardTitle,
   CardDescription,
 } from "./home.styles";
+import { Folder, CheckCircle, Wrench } from "lucide-react";
+import { usePathname } from "next/navigation";
+
+const IconWrapper = ({ Icon }) => (
+  <Icon size={30} style={{ marginRight: "0.5rem" }} />
+);
 
 export default function DashboardHome() {
+  const pathname = usePathname();
+  const segments = pathname?.split("/") ?? [];
+  const accountSlug = segments[1] ?? "";
+
+  const baseHref = `/${accountSlug}/dashboard`;
+
   return (
     <Container>
       <Title>Welcome to Your Dashboard</Title>
@@ -23,30 +33,29 @@ export default function DashboardHome() {
       </Description>
 
       <Grid>
-        <Link href="/dashboard/documents" passHref>
-          <Card as="a">
-            <CardTitle>📁 Documents</CardTitle>
-            <CardDescription>
-              View and download all shared files.
-            </CardDescription>
-          </Card>
-        </Link>
+        <Card href={`${baseHref}/documents`}>
+          <CardTitle>
+            <IconWrapper Icon={Folder} />
+            Documents
+          </CardTitle>
+          <CardDescription>View and download all shared files.</CardDescription>
+        </Card>
 
-        <Link href="/dashboard/steps" passHref>
-          <Card as="a">
-            <CardTitle>✅ Onboarding Checklist</CardTitle>
-            <CardDescription>Track your setup progress.</CardDescription>
-          </Card>
-        </Link>
+        <Card href={`${baseHref}/steps`}>
+          <CardTitle>
+            <IconWrapper Icon={CheckCircle} />
+            Onboarding Checklist
+          </CardTitle>
+          <CardDescription>Track your setup progress.</CardDescription>
+        </Card>
 
-        <Link href="/dashboard/tools" passHref>
-          <Card as="a">
-            <CardTitle>🔧 Collaboration Tools</CardTitle>
-            <CardDescription>
-              Access Markup, Milanote, and more.
-            </CardDescription>
-          </Card>
-        </Link>
+        <Card href={`${baseHref}/tools`}>
+          <CardTitle>
+            <IconWrapper Icon={Wrench} />
+            Collaboration Tools
+          </CardTitle>
+          <CardDescription>Access Markup, Milanote, and more.</CardDescription>
+        </Card>
       </Grid>
     </Container>
   );

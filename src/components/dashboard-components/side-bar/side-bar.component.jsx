@@ -3,38 +3,56 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Aside, Title, NavLink } from "./side-bar.styles";
+import { Home, Folder, CheckCircle, Wrench } from "lucide-react";
+import styled from "styled-components";
 
 const navItems = [
-  { name: "Home", path: "/dashboard" },
-  { name: "Documents", path: "/dashboard/documents" },
-  { name: "Next Steps", path: "/dashboard/steps" },
-  { name: "Tools", path: "/dashboard/tools" },
+  { name: "Home", path: "", Icon: Home },
+  { name: "Documents", path: "documents", Icon: Folder },
+  { name: "Next Steps", path: "steps", Icon: CheckCircle },
+  { name: "Tools", path: "tools", Icon: Wrench },
 ];
+
+const NavContent = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
+const IconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 export default function Sidebar() {
   const pathname = usePathname();
-
-  // Extract accountSlug from pathname: assuming URL structure is /[accountSlug]/...
-  // pathname example: "/myAccount/dashboard" or "/myAccount/documents"
   const segments = pathname?.split("/") ?? [];
   const accountSlug = segments[1] ?? "";
+
+  const basePath = `/${accountSlug}/dashboard`;
 
   return (
     <Aside>
       <Title>Client Dashboard</Title>
-      <nav>
-        {navItems.map(({ name, path }) => {
-          // Compose full path with dynamic accountSlug prefix
-          const fullPath = `/${accountSlug}${path}`;
 
-          // Determine if the nav link is active based on pathname startsWith fullPath
-          // so that /myAccount/dashboard and /myAccount/dashboard/subpage still highlight "Home"
-          const isActive = pathname?.startsWith(fullPath);
+      <nav>
+        {navItems.map(({ name, path, Icon }) => {
+          const fullPath = `${basePath}${path ? `/${path}` : ""}`;
+          const isActive =
+            path === ""
+              ? pathname === fullPath // Home: only exact match
+              : pathname === fullPath || pathname.startsWith(`${fullPath}/`);
 
           return (
-            <Link key={fullPath} href={fullPath} passHref legacyBehavior>
-              <NavLink $active={isActive}>{name}</NavLink>
-            </Link>
+            <NavLink key={fullPath} href={fullPath} $active={isActive}>
+              <NavContent>
+                <IconWrapper>
+                  <Icon size={20} />
+                </IconWrapper>
+                {name}
+              </NavContent>
+            </NavLink>
           );
         })}
       </nav>
