@@ -4,7 +4,7 @@ import React from "react";
 import Sidebar from "@/components/dashboard-components/side-bar/side-bar.component";
 
 const navItems = [
-  { name: "Home", path: "/dashboard" },
+  { name: "Home", path: "/dashboar" },
   { name: "Documents", path: "/dashboard/documents" },
   { name: "Next Steps", path: "/dashboard/steps" },
   { name: "Tools", path: "/dashboard/tools" },
