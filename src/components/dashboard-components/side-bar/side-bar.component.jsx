@@ -3,14 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Aside, Title, NavLink } from "./side-bar.styles";
-import { Home, Folder, CheckCircle, Wrench } from "lucide-react";
+import { Home, Folder, CheckCircle, Network } from "lucide-react";
 import styled from "styled-components";
 
 const navItems = [
   { name: "Home", path: "", Icon: Home },
-  { name: "Documents", path: "documents", Icon: Folder },
-  { name: "Next Steps", path: "steps", Icon: CheckCircle },
-  { name: "Tools", path: "tools", Icon: Wrench },
+  { name: "Files", path: "documents", Icon: Folder },
+  { name: "To-Do", path: "to-do", Icon: CheckCircle },
+  { name: "Workspace", path: "workspace", Icon: Network },
 ];
 
 const NavContent = styled.div`

@@ -10,7 +10,7 @@ import {
   CardTitle,
   CardDescription,
 } from "./home.styles";
-import { Folder, CheckCircle, Wrench } from "lucide-react";
+import { Folder, CheckCircle, Network } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 const IconWrapper = ({ Icon }) => (
@@ -36,12 +36,12 @@ export default function DashboardHome() {
         <Card href={`${baseHref}/documents`}>
           <CardTitle>
             <IconWrapper Icon={Folder} />
-            Documents
+            Files
           </CardTitle>
           <CardDescription>View and download all shared files.</CardDescription>
         </Card>
 
-        <Card href={`${baseHref}/steps`}>
+        <Card href={`${baseHref}/to-do`}>
           <CardTitle>
             <IconWrapper Icon={CheckCircle} />
             Onboarding Checklist
@@ -49,10 +49,10 @@ export default function DashboardHome() {
           <CardDescription>Track your setup progress.</CardDescription>
         </Card>
 
-        <Card href={`${baseHref}/tools`}>
+        <Card href={`${baseHref}/workspace`}>
           <CardTitle>
-            <IconWrapper Icon={Wrench} />
-            Collaboration Tools
+            <IconWrapper Icon={Network} />
+            Workspace & Tools
           </CardTitle>
           <CardDescription>Access Markup, Milanote, and more.</CardDescription>
         </Card>

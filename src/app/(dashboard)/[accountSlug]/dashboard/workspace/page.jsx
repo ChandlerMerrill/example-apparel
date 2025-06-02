@@ -1,19 +1,11 @@
-// app/(dashboard)/[accountSlug]/dashboard/page.jsx
-import DashboardHome from "@/components/dashboard-components/home/home.component";
 import WorkspaceSection from "@/components/dashboard-components/workspace/workspace-section.component";
 import { getAccountData } from "@/lib/account/account-documents/getAccountData.server";
 
-// Next.js 13 app router page component
-export default async function DashboardPage({ params }) {
+export default async function WorkspacePage({ params }) {
   const accountSlug = params.accountSlug;
   const accountData = await getAccountData(accountSlug);
 
   const tools = accountData.tools || [];
 
-  return (
-    <>
-      <DashboardHome />
-      <WorkspaceSection tools={tools} />
-    </>
-  );
+  return <WorkspaceSection tools={tools} />;
 }
