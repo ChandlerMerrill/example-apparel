@@ -3,15 +3,25 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Aside, Title, NavLink } from "./side-bar.styles";
-import { Home, Folder, CheckCircle, Network } from "lucide-react";
+import {
+  Home,
+  Folder,
+  CheckCircle,
+  Network,
+  Globe,
+  ShoppingCart,
+  PackageCheck,
+} from "lucide-react";
 import styled from "styled-components";
 
-const navItems = [
-  { name: "Home", path: "", Icon: Home },
-  { name: "Files", path: "documents", Icon: Folder },
-  { name: "To-Do", path: "to-do", Icon: CheckCircle },
-  { name: "Workspace", path: "workspace", Icon: Network },
-];
+const SectionTitle = styled.div`
+  margin: 1.5rem 0 0.5rem;
+  padding-left: 1rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #888;
+  text-transform: uppercase;
+`;
 
 const NavContent = styled.div`
   display: flex;
@@ -29,32 +39,46 @@ export default function Sidebar() {
   const pathname = usePathname();
   const segments = pathname?.split("/") ?? [];
   const accountSlug = segments[1] ?? "";
-
   const basePath = `/${accountSlug}/dashboard`;
+
+  const renderLink = (name, path, Icon) => {
+    const fullPath = `${basePath}${path ? `/${path}` : ""}`;
+    const isActive =
+      path === ""
+        ? pathname === fullPath
+        : pathname === fullPath || pathname.startsWith(`${fullPath}/`);
+
+    return (
+      <NavLink key={fullPath} href={fullPath} $active={isActive}>
+        <NavContent>
+          <IconWrapper>
+            <Icon size={20} />
+          </IconWrapper>
+          {name}
+        </NavContent>
+      </NavLink>
+    );
+  };
 
   return (
     <Aside>
       <Title>Client Dashboard</Title>
 
+      {/* Primary Section */}
       <nav>
-        {navItems.map(({ name, path, Icon }) => {
-          const fullPath = `${basePath}${path ? `/${path}` : ""}`;
-          const isActive =
-            path === ""
-              ? pathname === fullPath // Home: only exact match
-              : pathname === fullPath || pathname.startsWith(`${fullPath}/`);
+        {renderLink("Home", "", Home)}
+        {renderLink("Files", "documents", Folder)}
+        {renderLink("To-Do", "to-do", CheckCircle)}
+        {renderLink("Workspace", "workspace", Network)}
+      </nav>
 
-          return (
-            <NavLink key={fullPath} href={fullPath} $active={isActive}>
-              <NavContent>
-                <IconWrapper>
-                  <Icon size={20} />
-                </IconWrapper>
-                {name}
-              </NavContent>
-            </NavLink>
-          );
-        })}
+      {/* Divider Section */}
+      <SectionTitle>Beta Tools</SectionTitle>
+
+      <nav>
+        {renderLink("Portals", "portals", Globe)}
+        {renderLink("Orders Received", "orders/received", PackageCheck)}
+        {renderLink("Purchasing", "orders/purchasing", ShoppingCart)}
       </nav>
     </Aside>
   );
