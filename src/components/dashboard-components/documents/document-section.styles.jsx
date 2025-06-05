@@ -22,6 +22,7 @@ export const Section = styled.section`
 export const Summary = styled.summary`
   cursor: pointer;
   padding: 1rem 1.25rem;
+
   display: flex;
   justify-content: space-between;
   align-items: center;

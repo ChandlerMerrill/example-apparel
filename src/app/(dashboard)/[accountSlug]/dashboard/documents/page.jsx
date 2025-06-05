@@ -5,8 +5,42 @@ import DocumentSection from "@/components/dashboard-components/documents/documen
 
 export const metadata = { title: "My Documents" }; // optional SEO helper
 
+// export default async function DocumentsPage() {
+//   const accountId = "west-jordan-soccer-club"; // TODO: make dynamic via params
+//   const files = await listClientFiles(accountId);
+//   const grouped = groupFilesByFolder(files);
+
+//   return (
+//     <>
+//       <h1 style={{ fontSize: "1.5rem", fontWeight: 700, marginBottom: "1rem" }}>
+//         My Documents
+//       </h1>
+
+//       <p style={{ marginBottom: "1.5rem", color: "#4b5563" }}>
+//         Find all your shared files here, organized by folder. Upload and remove
+//         functionality is coming soon!
+//       </p>
+
+//       {Object.entries(grouped).map(([folder, docs]) => (
+//         <DocumentSection key={folder} title={folder} docs={docs} />
+//       ))}
+//     </>
+//   );
+// }
+
+function renderFolder(name, folder) {
+  return (
+    <DocumentSection key={name} title={name} docs={folder._files || []}>
+      {Object.entries(folder).map(([subName, subFolder]) => {
+        if (subName === "_files") return null;
+        return renderFolder(subName, subFolder);
+      })}
+    </DocumentSection>
+  );
+}
+
 export default async function DocumentsPage() {
-  const accountId = "west-jordan-soccer-club"; // TODO: make dynamic via params
+  const accountId = "west-jordan-soccer-club";
   const files = await listClientFiles(accountId);
   const grouped = groupFilesByFolder(files);
 
@@ -17,13 +51,12 @@ export default async function DocumentsPage() {
       </h1>
 
       <p style={{ marginBottom: "1.5rem", color: "#4b5563" }}>
-        Find all your shared files here, organized by folder. Upload and remove
-        functionality is coming soon!
+        Find all your shared files here, organized by folder.
       </p>
 
-      {Object.entries(grouped).map(([folder, docs]) => (
-        <DocumentSection key={folder} title={folder} docs={docs} />
-      ))}
+      {Object.entries(grouped).map(([folderName, folderContent]) =>
+        renderFolder(folderName, folderContent)
+      )}
     </>
   );
 }

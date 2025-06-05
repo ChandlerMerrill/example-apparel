@@ -1,5 +1,5 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
@@ -68,7 +68,7 @@ const Container = styled.div`
 
 export default function ComingSoonPage() {
   const router = useRouter();
-
+  const pathname = usePathname();
   return (
     <>
       <BackgroundImage>
@@ -88,7 +88,11 @@ export default function ComingSoonPage() {
           Our completed dealer platform is launching soon. In the meantime, you
           can create an account to get early access and onboarding support.
         </Description>
-        <Button onClick={() => router.push("/auth")}>
+        <Button
+          onClick={() =>
+            router.push(`/auth?redirect=${encodeURIComponent(pathname)}`)
+          }
+        >
           Login / Create Account
         </Button>
       </Container>
